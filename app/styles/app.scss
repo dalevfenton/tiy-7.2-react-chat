@@ -18,6 +18,25 @@ img {
   max-width: 100%;
 }
 
+//---------------------------------------------------------------
+//                     LOGIN FORM STYLES
+//---------------------------------------------------------------
+#login-form{
+  @include make-sm-column(6);
+  @include make-sm-column-offset(3);
+  padding: 30px 15px;
+  margin-top: 150px;
+  border: 2px solid $lt-grey-color;
+  border-radius: 10px;
+  input, button{
+    height: 48px;
+    width: 100%;
+    border-radius: 5px;
+  }
+  input{
+    margin-bottom: 24px;
+  }
+}
 
 //---------------------------------------------------------------
 //                     HEADER STYLES
@@ -77,7 +96,7 @@ img {
 }
 .chat-inner, .chat-form{
   @include make-sm-column(10);
-  @include make-xs-column-offset(1);
+  @include make-sm-column-offset(1);
 }
 .chat-inner{
   border: 2px solid $lt-grey-color;
