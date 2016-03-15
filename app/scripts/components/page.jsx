@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 
 var Header = require('./header.jsx');
-// var ChatArea = require('./chatarea.jsx');
+var ChatArea = require('./chatarea.jsx');
 
 var Page = React.createClass({
   render: function(){
@@ -18,7 +18,7 @@ var Page = React.createClass({
           </div>
           <div className="container chat-area">
             <div className="row">
-              Chat Area Will Fill In Here
+              <ChatArea collection={this.props.collection} />
             </div>
           </div>
         </div>

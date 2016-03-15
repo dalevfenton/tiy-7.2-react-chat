@@ -14,7 +14,7 @@ var ChatCollection = Backbone.Collection.extend({
   },
   url: 'http://tiny-lasagna-server.herokuapp.com/collections/messages',
   model: Chat,
-  comparator: '_id'
+  comparator: 'created_at'
 });
 
 module.exports = {
