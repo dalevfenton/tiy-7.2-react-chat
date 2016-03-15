@@ -23,7 +23,7 @@
     "underscore": "^1.8.3"
     , "bootstrap-sass": "^3.3.6"
     , "backbone": "^1.3.1"
-    
+
     , "react": "^0.14.7"
     , "react-dom": "^0.14.7"
     , "reactify": "^1.1.1"
@@ -32,7 +32,7 @@
   },
   "scripts": {
     "html": "cp app/*.html dist/",
-
+    "fonts": "cp app/fonts/* dist/fonts/",
     "scss": "sass --style compressed --update app/styles:dist/css",
     "autoprefixer": "postcss -u autoprefixer -r dist/css/*.css",
 
@@ -51,16 +51,17 @@
     "deploy:done": "say -v Karen 'Your project is now on gh pages. Do not forget to add the link to the re po description.'",
 
     "watch:scss": "sass --watch app/styles:dist/css",
+    "watch:fonts": "npm run fonts && onchange 'app/fonts/*' -- npm run fonts",
     "watch:js": "watchify app/scripts/index.js -o dist/js/bundle.js",
     "watch:html": "npm run html && onchange 'app/**/*.html' -- npm run html",
     "watch:images": "npm run build:images && onchange 'app/images/*' -- npm run build:images",
-    "server": "live-server --open='dist'",
-    "watch": "parallelshell 'npm run watch:html' 'npm run watch:scss' 'npm run watch:images' 'npm run watch:js' 'npm run server'"
+    "server": "live-server --open='dist' --browser='Google Chrome.app' --port='9001' ",
+    "watch": "parallelshell 'npm run watch:html' 'npm run watch:scss' 'npm run watch:fonts' 'npm run watch:images' 'npm run watch:js' 'npm run server'"
   },
   "browserify": {
     "transform": [
       "browserify-shim",
-      
+
       "reactify",
       "strictify"
     ]
