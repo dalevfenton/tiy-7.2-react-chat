@@ -8,6 +8,7 @@
   </head>
   <body>
     <div id="app">
+      <!-- TODO rework colors and overall look of design -->
 
       <!-- header component -->
       <div class="container-fluid title-bar">
@@ -39,16 +40,17 @@
       <div class="container chat-area">
         <div class="row">
           <div class="chat-inner">
-            <div class="message-holder"><div class="message"><span class="user message-bubble">Message From User</span></div></div>
-            <!-- allow for other messages to have user's name attached -->
-            <div class="message-holder"><div class="message"><span class="other message-bubble">Message From other</span></div></div>
-<!--
-            <ul>
-              <li class="user">message 1</li>
-              <li class="other">message 2</li>
-              <li class="other">message 3</li>
-              <li class="user">message 4</li>
-            </ul> -->
+            <div class="message-holder">
+              <div class="message">
+                <span class="user message-bubble">Message From User</span>
+              </div>
+            </div>
+            <!-- TODO allow for other messages to have user's name attached -->
+            <div class="message-holder">
+              <div class="message">
+                <span class="other message-bubble">Message From other</span>
+              </div>
+            </div>
           </div>
           <div class="chat-form">
             <form>
@@ -60,6 +62,9 @@
           </div>
         </div>
       </div>
+      <!-- end chat area -->
+
+
     </div>
     <script src="js/bundle.js"></script>
   </body>
