@@ -5,6 +5,8 @@ $icon-font-path: '../fonts/';
 // Import Bootstrap
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
 
+//color pallette
+$lt-grey-color: rgb(158, 158, 166);
 
 *,
 *::before,
@@ -14,4 +16,109 @@ $icon-font-path: '../fonts/';
 
 img {
   max-width: 100%;
+}
+
+
+//---------------------------------------------------------------
+//                     HEADER STYLES
+//---------------------------------------------------------------
+.title-bar {
+  // background-color: red;
+}
+.room-meta, .room-meta-right{
+  height: 48px;
+}
+.room-meta{
+  @include make-sm-column(4);
+}
+.room-meta-right{
+  @include make-sm-column(8);
+}
+.room-name{
+  text-transform: lowercase;
+  font-size: 20px;
+  font-weight: bold;
+}
+.room-users{
+  color: $lt-grey-color;
+  font-style: italic;
+}
+.room-meta-right{
+  text-align: right;
+}
+.user-info, .title-bar-search{
+  padding: 10px;
+  display: inline-block;
+  &:not(:first-of-type){
+    margin-left: -4px;
+  }
+}
+.user-info{
+  width: 30%;
+}
+.title-bar-search{
+  width: 70%;
+  height: 48px;
+  input{
+    width: 80%;
+  }
+  button{
+    width: 20%;
+    margin-left: -4px;
+  }
+}
+
+
+//---------------------------------------------------------------
+//                     CHAT AREA STYLES
+//---------------------------------------------------------------
+.chat-area{
+  margin-top: 25px;
+}
+.chat-inner, .chat-form{
+  @include make-sm-column(10);
+  @include make-xs-column-offset(1);
+}
+.chat-inner{
+  border: 2px solid $lt-grey-color;
+  border-radius: 10px;
+  height: 500px;
+  margin-bottom: 25px;
+  padding: 15px;
+}
+.message-holder{
+  @include make-row();
+}
+.message{
+  @include make-sm-column(12);
+}
+.message-bubble{
+  padding: 10px;
+  border-radius: 5px;
+}
+.user{
+  float: right;
+  background-color: $lt-grey-color;
+}
+.other{
+  float: left;
+  color: white;
+  background-color: darken( $lt-grey-color, 50%);
+}
+.chat-form{
+  padding: 0;
+  input,button{
+    height: 48px;
+    border: 2px solid $lt-grey-color;
+  }
+  input{
+    width: 95%;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+  }
+  button{
+    width: 5%;
+    margin-left: -4px;
+    border-radius: 0 10px 10px 0;
+  }
 }

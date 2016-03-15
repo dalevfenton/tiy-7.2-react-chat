@@ -7,10 +7,60 @@
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-
     <div id="app">
-    </div>
 
+      <!-- header component -->
+      <div class="container-fluid title-bar">
+        <div class="container">
+          <div id="title-bar" class="row">
+            <div class="room-meta">
+              <div class="room-name">Dummy Room</div>
+              <div class="room-users">23 Users</div>
+            </div>
+            <div class="room-meta-right">
+              <div class="title-bar-search">
+                <form>
+                  <input type="text" name="search">
+                  <button type="submit">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  </button>
+                </form>
+              </div>
+              <div class="user-info">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span>UserName</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- chat area component -->
+      <div class="container chat-area">
+        <div class="row">
+          <div class="chat-inner">
+            <div class="message-holder"><div class="message"><span class="user message-bubble">Message From User</span></div></div>
+            <!-- allow for other messages to have user's name attached -->
+            <div class="message-holder"><div class="message"><span class="other message-bubble">Message From other</span></div></div>
+<!--
+            <ul>
+              <li class="user">message 1</li>
+              <li class="other">message 2</li>
+              <li class="other">message 3</li>
+              <li class="user">message 4</li>
+            </ul> -->
+          </div>
+          <div class="chat-form">
+            <form>
+              <input type="text" name="new_message">
+              <button type="submit" name="button">
+                <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="js/bundle.js"></script>
   </body>
 </html>

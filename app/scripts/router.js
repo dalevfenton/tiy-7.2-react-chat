@@ -12,7 +12,6 @@ var Router = Backbone.Router.extend({
   },
   index: function(){
     //setup index page here
-    console.log('index called');
     chats.fetch().done(function(){
       console.log(chats);
     });
