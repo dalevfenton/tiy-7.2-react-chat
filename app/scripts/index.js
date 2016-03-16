@@ -14,7 +14,8 @@ var models = require('./models/models');
 var InterfaceComponent = require('./components/interface.jsx');
 
 //Instantiate our collections
-var users = new models.UserCollection();
+var users = new models.UserCollection({});
+
 var messages = new models.ChatCollection();
 
 var user = null;
@@ -22,15 +23,16 @@ var user = null;
 $(function(){
   var router = new Router();
   Backbone.history.start();
-  users.fetch();
-  messages.fetch();
   if ( localStorage.getItem('chatterUsername') &&
       localStorage.getItem('chatterEmail') ){
 
     var username = localStorage.getItem('chatterUsername');
     var email = localStorage.getItem('chatterEmail');
-    user = users.create({ username: username, email: email, local: true });
+    user = users.create({ username: username, email: email, local: true, urlRoot: users.url });
   }
+  users.fetch();
+  messages.fetch();
+
   ReactDOM.render(
     React.createElement(
       InterfaceComponent,

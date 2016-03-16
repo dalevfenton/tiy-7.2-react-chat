@@ -57,14 +57,27 @@ var ChatMessage = React.createClass({
     }else{
       messageFrom = "other";
     }
-    var postTime = timeSince(this.props.model.get('created_at'));
+    var time = new Date(this.props.model.get('time'));
+    var postTime;
+    if(time){
+      console.log('time true');
+      postTime = timeSince(time);
+    }else{
+      postTime = timeSince(new Date());
+    }
+    var avatarUrl;
+    if(this.props.model.get('user_avatar')){
+      avatarUrl = this.props.model.get('user_avatar');
+    }else{
+      avatarUrl = 'http://unsplash.it/40/40';
+    }
     return (
       <div className="message-holder">
         <div className="message">
           <div className={messageFrom}>
             <div className="message-meta">
               <div className="user-avatar message-avatar">
-                <img src={this.props.user.get('gravUrl')} />
+                <img src={avatarUrl} />
               </div>
               <div className="message-meta-meta">
                 <span className="user-handle">{this.props.model.get('username')}</span>
@@ -99,7 +112,8 @@ var ChatForm = React.createClass({
     this.props.messages.create({
       content: chat,
       username: this.props.user.get('username'),
-      created_at: Date.now()
+      user_avatar: this.props.user.get('gravUrl'),
+      time: Date.now()
     }, {wait: true});
     this.setState({ chat: '' });
   },
@@ -129,8 +143,8 @@ var ChatArea = React.createClass({
       );
     }.bind(this));
     return (
-      <div>
-        <div id="chat-main" className="chat-inner">
+      <div  id="chat-main" >
+        <div id="chat-scroll" className="chat-inner">
           {messageList}
         </div>
         <div className="chat-form">

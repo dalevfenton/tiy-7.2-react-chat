@@ -103,14 +103,22 @@ img {
 .chat-area{
   margin-top: 25px;
 }
-.chat-inner, .chat-form{
-  @include make-sm-column(10);
+#chat-main{
+  @include make-sm-column(7);
   @include make-sm-column-offset(1);
 }
 .chat-inner{
+  height: 500px;
+}
+#sidebar{
+  @include make-sm-column(3);
+}
+.sidebar-inner{ 
+  height: 573px;
+}
+.chat-inner, .sidebar-inner{
   border: 2px solid $lt-grey-color;
   border-radius: 10px;
-  height: 500px;
   margin-bottom: 25px;
   padding: 15px;
   overflow-y: scroll;
@@ -127,6 +135,7 @@ img {
   border-radius: 5px;
 }
 .message-avatar{
+  vertical-align: top;
   width: 3%;
   margin-right: 2%;
   height: auto;

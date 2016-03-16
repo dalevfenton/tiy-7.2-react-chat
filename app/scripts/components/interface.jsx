@@ -26,22 +26,42 @@ var InterfaceComponent = React.createClass({
   logOut: function(){
     // console.log('logOut called');
     this.setState({'currentUser': null});
+    this.props.users.destroy( this.props.user );
     Backbone.history.navigate('', {trigger: true});
   },
   scroll: function(){
-    var objDiv = document.getElementById("chat-main");
-    objDiv.scrollTop = objDiv.scrollHeight;
+    var objDiv = document.getElementById("chat-scroll");
+    if(objDiv){
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+  },
+  setInterval: function() {
+    this.intervals.push(setInterval.apply(null, arguments));
+  },
+  fetch: function(){
+    console.log('refetching collections');
+    console.log(this.props.user);
+    console.log(this.props.users);
+    this.props.user.keepActive();
+    this.props.users.cleanUp();
+    this.props.messages.fetch();
+    this.props.users.fetch();
   },
   componentWillMount: function(){
     this.callback = (function(){
       this.forceUpdate();
     }).bind(this);
+    this.intervals = [];
     this.props.router.on('route', this.callback);
-    this.props.messages.on('add', this.callback);
+    this.props.messages.on('update', this.callback);
     this.props.messages.on('update', this.scroll);
-    this.props.users.on('add', this.callback);
+    this.props.users.on('update', this.callback);
+  },
+  componentDidMount: function(){
+    this.setInterval(this.fetch, 5000); // Call a method on the mixin
   },
   componentWillUnmount: function(){
+    this.intervals.forEach(clearInterval);
     this.props.router.off('route', this.callback);
     this.props.messages.off('add', this.callback);
     this.props.users.off('add', this.callback);

@@ -16,6 +16,14 @@ var Header = React.createClass({
   handleSearch: function(e){
     this.setState({search: e.target.value });
   },
+  handleDD: function(e, eventKey ){
+    if(eventKey == 1){
+      this.toggleEdit(e);
+    }
+    if(eventKey == 2){
+      this.logOut(e);
+    }
+  },
   handleSubmit: function(e){
     e.preventDefault();
     //implement later when our collection is properly hooked up
@@ -23,8 +31,10 @@ var Header = React.createClass({
   toggleEdit: function(e){
     e.preventDefault();
     this.setState({toggleForm: !this.state.toggleForm});
+    console.log(this.state.toggleForm);
   },
   logOut: function(e){
+    console.log('inside Header logOut');
     e.preventDefault();
     this.props.user.logOut();
     this.props.doLogOut();
@@ -46,7 +56,7 @@ var Header = React.createClass({
           <div className="room-users">{this.state.users.length} members</div>
         </div>
         <div className="room-meta-right">
-          <DropdownButton bsStyle="default" title={ddTitle()} id="dropdown-size-medium">
+          <DropdownButton onSelect={this.handleDD} bsStyle="default" title={ddTitle()} id="dropdown-size-medium">
             <MenuItem eventKey="1">Edit Profile</MenuItem>
             <MenuItem eventKey="2">Log Out</MenuItem>
           </DropdownButton>

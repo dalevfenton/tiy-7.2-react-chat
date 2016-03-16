@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 
 var Header = require('./header.jsx');
 var ChatArea = require('./chatarea.jsx');
+var Sidebar = require('./sidebar.jsx');
 
 var Page = React.createClass({
   getInitialState: function(){
@@ -21,6 +22,7 @@ var Page = React.createClass({
         <div className="container chat-area">
           <div className="row">
             <ChatArea messages={this.props.messages} users={this.props.users} user={this.props.user}/>
+            <Sidebar users={this.props.users} user={this.props.user} />
           </div>
         </div>
       </div>

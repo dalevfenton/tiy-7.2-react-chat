@@ -6,8 +6,8 @@ var $ = require('jquery');
 var Chat = Backbone.Model.extend({
   idAttribute: '_id',
   initialize: function(options){
-    if (!this.get('created_at')){
-      this.set({'created_at': Date.now()});
+    if (!this.get('time')){
+      this.set({'time': Date.now()});
     }
     //don't think we need this
     // this.set({username: options.user.username});
@@ -17,9 +17,9 @@ var Chat = Backbone.Model.extend({
 var ChatCollection = Backbone.Collection.extend({
   initialize: function(){
   },
-  url: 'http://tiny-lasagna-server.herokuapp.com/collections/chattermessages',
+  url: 'http://tiny-lasagna-server.herokuapp.com/collections/messages',
   model: Chat,
-  comparator: 'created_at'
+  comparator: 'time'
 });
 
 var User = Backbone.Model.extend({
@@ -36,7 +36,7 @@ var User = Backbone.Model.extend({
     // UNCOMMENT TO RESET LOCAL STORAGE ON ALL USERS AND PUSH BACK TO SERVER
     // this.set({local: false});
     // this.save();
-    if(this.get('local')){
+    if (this.get('local')){
       localStorage.chatterUsername = this.get('username');
       localStorage.chatterEmail = this.get('email');
       this.set({'local': false });
@@ -49,12 +49,8 @@ var User = Backbone.Model.extend({
     this.set({lastActive: Date.now() });
   },
   logOut: function(){
-    // localStorage.removeItem('chatterUsername');
-    // localStorage.removeItem('chatterEmail');
     localStorage.clear();
-    // console.log(localStorage);
-    // console.log('inside logOut()');
-    this.destroy();
+    // this.destroy({wait: true});
   }
 });
 
@@ -62,7 +58,17 @@ var UserCollection = Backbone.Collection.extend({
   model: User,
   url: 'http://tiny-lasagna-server.herokuapp.com/collections/chatterusers',
   initialize: function(){
-    // var interval = setInterval( this.update, 1000 );
+  },
+  cleanUp: function(){
+    this.each(function(user){
+      console.log(user);
+      if(user){
+        console.log( (Date.now() - user.get('lastActive')) );
+        if ( (Date.now() - user.get('lastActive')) > 30000 ){
+          user.destroy();
+        }
+      }
+    });
   },
   update: function(){
     this.fetch().done(function(){
