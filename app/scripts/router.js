@@ -49,4 +49,4 @@ var Router = Backbone.Router.extend({
 });
 
 //Export To index.js to start Backbone history
-module.exports = new Router();
+module.exports = Router;

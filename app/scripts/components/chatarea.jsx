@@ -5,7 +5,7 @@ require('backbone-react-component');
 
 
 var ChatMessage = React.createClass({
-  mixins: [Backbone.React.Component.mixin],
+  // mixins: [Backbone.React.Component.mixin],
   render: function(){
     var messageFrom;
     if(this.props.model.get('username') === this.props.user.get('username')){
@@ -17,6 +17,7 @@ var ChatMessage = React.createClass({
       <div className="message-holder">
         <div className="message">
           <div className={messageFrom}>
+            <div className="user-avatar"><img src={this.props.user.get('gravUrl')} /></div>
             <span className="message-part message-bubble">{this.props.model.get('content')}</span>
             <span className="message-part message-sender">{this.props.model.get('username')}</span>
             <span className="message-part message-time">{this.props.model.get('created_at')}</span>
@@ -45,7 +46,7 @@ var ChatForm = React.createClass({
       content: chat,
       username: this.props.user.get('username'),
       created_at: Date.now()
-    });
+    }, {wait: true});
     this.setState({ chat: '' });
   },
   render: function(){

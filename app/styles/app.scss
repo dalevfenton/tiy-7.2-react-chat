@@ -65,7 +65,7 @@ img {
 .room-meta-right{
   text-align: right;
 }
-.user-info, .title-bar-search{
+.title-bar-search{
   padding: 10px;
   display: inline-block;
   &:not(:first-of-type){
@@ -73,7 +73,7 @@ img {
   }
 }
 .user-info{
-  width: 30%;
+
 }
 .user-avatar{
   display: inline-block;
@@ -119,19 +119,21 @@ img {
 }
 .message{
   @include make-sm-column(12);
+  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 5px;
 }
 .message-bubble{
   padding: 10px;
   border-radius: 5px;
 }
 .user{
-  float: right;
   background-color: $lt-grey-color;
 }
 .other{
-  float: left;
+  // float: left;
   color: white;
-  background-color: darken( $lt-grey-color, 50%);
+  background-color: darken( $lt-grey-color, 40%);
 }
 .chat-form{
   padding: 0;
