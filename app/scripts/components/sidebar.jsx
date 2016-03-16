@@ -11,6 +11,7 @@ var SidebarUser = React.createClass({
         </div>
         <div className="message-meta-meta">
           <span className="user-handle">{this.props.user.get('username')}</span>
+          <span className="user-handle">{this.props.user.get('lastActive')}</span>
         </div>
       </div>
     );

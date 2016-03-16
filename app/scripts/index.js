@@ -14,34 +14,36 @@ var models = require('./models/models');
 var InterfaceComponent = require('./components/interface.jsx');
 
 //Instantiate our collections
-var users = new models.UserCollection({});
+var users = new models.UserCollection();
 
 var messages = new models.ChatCollection();
 
 var user = null;
-// localStorage.clear();
+
+var router = new Router();
 $(function(){
-  var router = new Router();
   Backbone.history.start();
-  if ( localStorage.getItem('chatterUsername') &&
-      localStorage.getItem('chatterEmail') ){
+  users.fetch().then(function(){
+    if ( localStorage.getItem('chatterUsername') &&
+        localStorage.getItem('chatterEmail') ){
 
-    var username = localStorage.getItem('chatterUsername');
-    var email = localStorage.getItem('chatterEmail');
-    user = users.create({ username: username, email: email, local: true, urlRoot: users.url });
-  }
-  users.fetch();
+      var username = localStorage.getItem('chatterUsername');
+      var email = localStorage.getItem('chatterEmail');
+      user = users.create({ username: username, email: email, local: true, urlRoot: users.url });
+    }
+
+    ReactDOM.render(
+      React.createElement(
+        InterfaceComponent,
+        { router: router,
+          users: users,
+          messages: messages,
+          user: user
+        }
+      ),
+      document.getElementById('app')
+    );
+  });
+
   messages.fetch();
-
-  ReactDOM.render(
-    React.createElement(
-      InterfaceComponent,
-      { router: router,
-        users: users,
-        messages: messages,
-        user: user
-      }
-    ),
-    document.getElementById('app')
-  );
 });

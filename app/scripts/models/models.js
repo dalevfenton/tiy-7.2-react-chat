@@ -60,15 +60,16 @@ var UserCollection = Backbone.Collection.extend({
   initialize: function(){
   },
   cleanUp: function(){
-    this.each(function(user){
-      console.log(user);
-      if(user){
-        console.log( (Date.now() - user.get('lastActive')) );
-        if ( (Date.now() - user.get('lastActive')) > 30000 ){
-          user.destroy();
+    this.fetch().then(function(){
+      this.each(function(user){
+        if(user){
+          console.log( (Date.now() - user.get('lastActive')) );
+          if ( (Date.now() - user.get('lastActive')) > 30000 ){
+            user.destroy();
+          }
         }
-      }
-    });
+      });
+    }.bind(this));
   },
   update: function(){
     this.fetch().done(function(){

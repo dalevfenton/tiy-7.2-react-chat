@@ -59,8 +59,9 @@ var ChatMessage = React.createClass({
     }
     var time = new Date(this.props.model.get('time'));
     var postTime;
+    //this time is always evaluating true event for invalid time returns
+    //fix later
     if(time){
-      console.log('time true');
       postTime = timeSince(time);
     }else{
       postTime = timeSince(new Date());
@@ -71,6 +72,12 @@ var ChatMessage = React.createClass({
     }else{
       avatarUrl = 'http://unsplash.it/40/40';
     }
+    var userName;
+    if(this.props.model.get('username')){
+      userName = this.props.model.get('username');
+    }else{
+      userName = "anonymous";
+    }
     return (
       <div className="message-holder">
         <div className="message">
@@ -80,7 +87,7 @@ var ChatMessage = React.createClass({
                 <img src={avatarUrl} />
               </div>
               <div className="message-meta-meta">
-                <span className="user-handle">{this.props.model.get('username')}</span>
+                <span className="user-handle">{userName}</span>
                 <span className="post-time">{postTime}</span>
                   <div className="message-meta-message">
                     {this.props.model.get('content')}
