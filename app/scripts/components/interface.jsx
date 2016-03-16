@@ -46,6 +46,7 @@ var InterfaceComponent = React.createClass({
     console.log(this.state.users);
     if(this.state.user){
       this.state.user.keepActive();
+      console.log(this.state.user.get('lastActive'));
     }
     this.state.users.cleanUp();
     this.state.messages.fetch();
