@@ -75,6 +75,15 @@ img {
 .user-info{
   width: 30%;
 }
+.user-avatar{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-right: 10px;
+  vertical-align: bottom;
+}
 .title-bar-search{
   width: 70%;
   height: 48px;

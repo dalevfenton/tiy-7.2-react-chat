@@ -17,6 +17,7 @@ var Header = React.createClass({
     //implement later when our collection is properly hooked up
   },
   render: function(){
+    console.log(this.props.user);
     return (
       <div id="title-bar" className="row">
         <div className="room-meta">
@@ -43,7 +44,7 @@ var Header = React.createClass({
             </form>
           </div>
           <div className="user-info">
-            <span className="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <span className="user-avatar"><img src={this.props.user.get('gravUrl')} /></span>
             <span>{this.props.user.get('username')}</span>
           </div>
         </div>

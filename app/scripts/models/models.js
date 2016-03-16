@@ -37,8 +37,6 @@ var User = Backbone.Model.extend({
     console.log(this.get('gravUrl'));
     localStorage.chatterUsername = this.get('username');
     localStorage.chatterEmail = this.get('email');
-    localStorage.chatterGravUrl = this.get('gravUrl');
-    console.log(localStorage);
   },
   keepActive: function(){
     //keep active should be called by an interval our controller
