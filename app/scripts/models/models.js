@@ -27,28 +27,30 @@ var User = Backbone.Model.extend({
     username: 'anonymous',
     email: 'test@test.com',
     gravUrl: '',
-    lastActive: Date.now()
+    lastActive: Date.now(),
   },
-  idAttribute: 'username',
+  idAttribute: '_id',
   initialize: function(){
     var gravHash = md5(this.get('email').trim().toLowerCase());
-    console.log(gravHash);
     this.set({'gravUrl': 'http://www.gravatar.com/avatar/' + gravHash });
-    console.log(this.get('gravUrl'));
-    localStorage.chatterUsername = this.get('username');
-    localStorage.chatterEmail = this.get('email');
+    if(this.get('local')){
+      localStorage.chatterUsername = this.get('username');
+      localStorage.chatterEmail = this.get('email');
+    }
   },
   keepActive: function(){
-    //keep active should be called by an interval our controller
+    //keep active should be called by a setInterval on our controller
     //component once the app is active, probably at the same time
     //it is polling the messages endpoint for new messages
     this.set({lastActive: Date.now() });
   },
   logOut: function(){
-    // localStorage.remove('chatterUsername');
-    // localStorage.remove('chatterEmail');
-    // localStorage.remove('chatterGravUrl');
-    // this.destroy();
+    // localStorage.removeItem('chatterUsername');
+    // localStorage.removeItem('chatterEmail');
+    localStorage.clear();
+    console.log(localStorage);
+    console.log('inside logOut()');
+    this.destroy();
   }
 });
 

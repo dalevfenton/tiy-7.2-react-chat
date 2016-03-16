@@ -15,26 +15,30 @@ var InterfaceComponent = require('./components/interface.jsx');
 var users = new models.UserCollection();
 var messages = new models.ChatCollection();
 var user = null;
-
-if ( localStorage.getItem('chatterUsername') &&
-    localStorage.getItem('chatterEmail') ){
-
-  var username = localStorage.getItem('chatterUsername');
-  var email = localStorage.getItem('chatterEmail');
-  user = users.create({ username: username, email: email });
-}
-
+localStorage.clear();
 $(function(){
-  Backbone.history.start();
-  ReactDOM.render(
-    React.createElement(
-      InterfaceComponent,
-      { router: router,
-        users: users,
-        messages: messages,
-        user: user
+  users.fetch().then( function(){
+    messages.fetch().done(function(){
+      console.log(localStorage);
+      if ( localStorage.getItem('chatterUsername') &&
+          localStorage.getItem('chatterEmail') ){
+
+        var username = localStorage.getItem('chatterUsername');
+        var email = localStorage.getItem('chatterEmail');
+        user = users.create({ username: username, email: email, local:true });
       }
-    ),
-    document.getElementById('app')
-  );
+      Backbone.history.start();
+      ReactDOM.render(
+        React.createElement(
+          InterfaceComponent,
+          { router: router,
+            users: users,
+            messages: messages,
+            user: user
+          }
+        ),
+        document.getElementById('app')
+      );
+    });
+  });
 });

@@ -5,11 +5,18 @@ require('backbone-react-component');
 
 
 var ChatMessage = React.createClass({
+  mixins: [Backbone.React.Component.mixin],
   render: function(){
+    var messageFrom;
+    if(this.props.model.get('username') === this.props.user.get('username')){
+      messageFrom = "user";
+    }else{
+      messageFrom = "other";
+    }
     return (
       <div className="message-holder">
         <div className="message">
-          <div className="user">
+          <div className={messageFrom}>
             <span className="message-part message-bubble">{this.props.model.get('content')}</span>
             <span className="message-part message-sender">{this.props.model.get('username')}</span>
             <span className="message-part message-time">{this.props.model.get('created_at')}</span>
@@ -34,15 +41,12 @@ var ChatForm = React.createClass({
   onSubmit: function(e){
     e.preventDefault();
     var chat = this.state.chat;
-    //TODO: setup user "login" to tag messages
-    //username should be held in router at login and passed through component chain
-    this.props.collection.create({
+    this.props.messages.create({
       content: chat,
-      username: '',
+      username: this.props.user.get('username'),
       created_at: Date.now()
     });
     this.setState({ chat: '' });
-    console.log(this.props.collection);
   },
   render: function(){
     return (
@@ -64,18 +68,18 @@ var ChatForm = React.createClass({
 var ChatArea = React.createClass({
   mixins: [Backbone.React.Component.mixin],
   render: function(){
-    var messageList = this.props.collection.map( function(model){
+    var messageList = this.props.messages.map( function(model){
       return (
-        <ChatMessage model={model} key={model.get('_id')} />
+        <ChatMessage user={this.props.user} model={model} key={model.get('_id')} />
       );
-    });
+    }.bind(this));
     return (
       <div>
         <div className="chat-inner">
           {messageList}
         </div>
         <div className="chat-form">
-          <ChatForm collection={this.props.collection} />
+          <ChatForm user={this.props.user} messages={this.props.messages} />
         </div>
       </div>
     );

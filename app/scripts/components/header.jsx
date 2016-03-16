@@ -1,4 +1,5 @@
 var React = require('react');
+var Backbone = require('backbone');
 
 var Header = React.createClass({
   getInitialState: function(){
@@ -6,7 +7,8 @@ var Header = React.createClass({
       roomName: 'Default Room',
       search: '',
       users: this.props.users,
-      user: this.props.user
+      user: this.props.user,
+      toggleForm: false
     }
   },
   handleSearch: function(e){
@@ -15,6 +17,15 @@ var Header = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
     //implement later when our collection is properly hooked up
+  },
+  toggleEdit: function(e){
+    e.preventDefault();
+    this.setState({toggleForm: !this.state.toggleForm});
+  },
+  logOut: function(e){
+    e.preventDefault();
+    this.props.user.logOut();
+    this.props.doLogOut();
   },
   render: function(){
     console.log(this.props.user);
@@ -46,6 +57,12 @@ var Header = React.createClass({
           <div className="user-info">
             <span className="user-avatar"><img src={this.props.user.get('gravUrl')} /></span>
             <span>{this.props.user.get('username')}</span>
+          </div>
+          <div className="user-log-out">
+            <button onClick={this.logOut} >Log Out</button>
+          </div>
+          <div className="user-edit">
+            <button onClick={this.toggleEdit} >Edit User</button>
           </div>
         </div>
       </div>
