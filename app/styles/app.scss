@@ -113,6 +113,7 @@ img {
   height: 500px;
   margin-bottom: 25px;
   padding: 15px;
+  overflow-y: scroll;
 }
 .message-holder{
   @include make-row();
@@ -120,20 +121,47 @@ img {
 .message{
   @include make-sm-column(12);
   margin-bottom: 12px;
-  padding: 15px;
-  border-radius: 5px;
 }
 .message-bubble{
   padding: 10px;
   border-radius: 5px;
 }
+.message-avatar{
+  width: 3%;
+  margin-right: 2%;
+  height: auto;
+}
+.message-meta-meta{
+  width: 90%;
+  display: inline-block;
+  vertical-align: top;
+}
+.user-handle{
+  font-weight: bold;
+  margin-right: 10px;
+}
+.post-time{
+  font-size: 85%;
+  font-weight: 200;
+}
+
+.user, .other{
+  padding: 15px;
+  border-radius: 5px;
+}
 .user{
   background-color: $lt-grey-color;
+  .post-time{
+    color: darken($lt-grey-color, 40%);
+  }
 }
 .other{
   // float: left;
   color: white;
   background-color: darken( $lt-grey-color, 40%);
+  .post-time{
+    color: $lt-grey-color;
+  }
 }
 .chat-form{
   padding: 0;

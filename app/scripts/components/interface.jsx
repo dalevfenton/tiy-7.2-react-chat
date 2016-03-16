@@ -28,12 +28,17 @@ var InterfaceComponent = React.createClass({
     this.setState({'currentUser': null});
     Backbone.history.navigate('', {trigger: true});
   },
+  scroll: function(){
+    var objDiv = document.getElementById("chat-main");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  },
   componentWillMount: function(){
     this.callback = (function(){
       this.forceUpdate();
     }).bind(this);
     this.props.router.on('route', this.callback);
     this.props.messages.on('add', this.callback);
+    this.props.messages.on('update', this.scroll);
     this.props.users.on('add', this.callback);
   },
   componentWillUnmount: function(){
