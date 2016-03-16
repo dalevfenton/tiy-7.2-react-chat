@@ -46,7 +46,9 @@ var User = Backbone.Model.extend({
     //keep active should be called by a setInterval on our controller
     //component once the app is active, probably at the same time
     //it is polling the messages endpoint for new messages
+    console.log('keepActive called');
     this.set({lastActive: Date.now() });
+    this.save();
   },
   logOut: function(){
     localStorage.clear();
