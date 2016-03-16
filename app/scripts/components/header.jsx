@@ -5,7 +5,8 @@ var Header = React.createClass({
     return {
       roomName: 'Default Room',
       search: '',
-      users: []
+      users: this.props.users,
+      user: this.props.user
     }
   },
   handleSearch: function(e){
@@ -43,7 +44,7 @@ var Header = React.createClass({
           </div>
           <div className="user-info">
             <span className="glyphicon glyphicon-user" aria-hidden="true"></span>
-            <span>UserName</span>
+            <span>{this.props.user.get('username')}</span>
           </div>
         </div>
       </div>
