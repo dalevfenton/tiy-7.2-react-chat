@@ -18,6 +18,9 @@ img {
   max-width: 100%;
 }
 
+input{
+  padding-left: 12px;
+}
 //---------------------------------------------------------------
 //                     LOGIN FORM STYLES
 //---------------------------------------------------------------
@@ -42,7 +45,7 @@ img {
 //                     HEADER STYLES
 //---------------------------------------------------------------
 .title-bar {
-  // background-color: red;
+  margin-top: 10px;
 }
 .room-meta, .room-meta-right{
   height: 48px;
@@ -113,8 +116,15 @@ img {
 #sidebar{
   @include make-sm-column(3);
 }
-.sidebar-inner{ 
+.sidebar-inner{
   height: 573px;
+}
+.sidebar-meta{
+  margin-bottom: 10px;
+}
+.sidebar-username{
+  width: 75%;
+  display: inline-block;
 }
 .chat-inner, .sidebar-inner{
   border: 2px solid $lt-grey-color;

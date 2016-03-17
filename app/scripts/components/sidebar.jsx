@@ -5,13 +5,12 @@ var React = require('react');
 var SidebarUser = React.createClass({
   render: function(){
     return (
-      <div className="message-meta">
-        <div className="user-avatar message-avatar">
+      <div className="sidebar-meta">
+        <div className="user-avatar">
           <img src={this.props.user.get('gravUrl')} />
         </div>
-        <div className="message-meta-meta">
+        <div className="sidebar-username">
           <span className="user-handle">{this.props.user.get('username')}</span>
-          <span className="user-handle">{this.props.user.get('lastActive')}</span>
         </div>
       </div>
     );
@@ -21,7 +20,13 @@ var SidebarUser = React.createClass({
 var Sidebar = React.createClass({
   render: function(){
     var userComps = this.props.users.map(function(user){
-      return <SidebarUser user={user} key={user.get('_id')} />
+      var id;
+      if(user.get('_id')){
+        id = user.get('_id');
+      }else{
+        id = user.cid;
+      }
+      return <SidebarUser user={user} key={id} />
     }.bind(this));
     return (
       <div id="sidebar">

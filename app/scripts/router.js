@@ -5,7 +5,8 @@ var Backbone = require('backbone');
 var Router = Backbone.Router.extend({
   routes: {
     '(/)': 'index',
-    'chat': 'chat'
+    'chat': 'chat',
+    'user-edit': 'userEdit'
   },
   initialize: function(){
   },
@@ -14,6 +15,9 @@ var Router = Backbone.Router.extend({
   },
   chat: function(){
     this.current = 'chat';
+  },
+  userEdit: function(){
+    this.current = 'userEdit';
   }
 });
 

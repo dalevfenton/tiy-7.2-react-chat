@@ -10,7 +10,7 @@ var dummyData = '';
 //Other React Components
 var Login = require('./login.jsx');
 var Page = require('./page.jsx');
-
+var UserProfile = require('./userprofile.jsx');
 
 var InterfaceComponent = React.createClass({
   getInitialState: function(){
@@ -22,14 +22,38 @@ var InterfaceComponent = React.createClass({
     };
   },
   logIn: function( username, email ){
-    var newUser = this.state.users.create({ username: username, email: email, local: true });
-    this.setState({user: newUser});
-    Backbone.history.navigate('chat/', {trigger: true});
+    this.state.users.fetch().then(function(){
+      var newUser = this.state.users.create({
+        username: username,
+        email: email,
+        local: true,
+        urlRoot: this.state.users.url,
+        lastActive: Date.now()
+      });
+
+      this.setState({user: newUser});
+      Backbone.history.navigate('chat/', {trigger: true});
+      this.setInterval(this.fetch, 5000);
+    }.bind(this));
   },
   logOut: function(){
+    this.intervals.forEach(clearInterval);
     this.state.users.get(this.state.user).destroy();
     this.setState({'user': null});
     Backbone.history.navigate('', {trigger: true});
+  },
+  updateUser: function( obj ){
+    var updates = {
+      username: obj.username,
+      email: obj.email,
+      gravUrl: obj.gravUrl,
+      lastActive: Date.now()
+    };
+    var save = function(updates, error, success ){
+      this.state.user.save( updates, { error: error })
+    }.bind(this);
+
+    save(updates, save);
   },
   scroll: function(){
     var objDiv = document.getElementById("chat-scroll");
@@ -41,12 +65,8 @@ var InterfaceComponent = React.createClass({
     this.intervals.push(setInterval.apply(null, arguments));
   },
   fetch: function(){
-    console.log('refetching collections');
-    console.log(this.state.user);
-    console.log(this.state.users);
     if(this.state.user){
       this.state.user.keepActive();
-      console.log(this.state.user.get('lastActive'));
     }
     this.state.users.cleanUp();
     this.state.messages.fetch();
@@ -62,7 +82,7 @@ var InterfaceComponent = React.createClass({
     this.state.users.on('update', this.callback);
   },
   componentDidMount: function(){
-    this.setInterval(this.fetch, 5000); // Call a method on the mixin
+    this.setInterval(this.fetch, 5000);
   },
   componentWillUnmount: function(){
     this.intervals.forEach(clearInterval);
@@ -74,6 +94,8 @@ var InterfaceComponent = React.createClass({
   render: function(){
     if (!this.state.user){
       return ( <Login returnLogin={this.logIn} /> );
+    }else if ( this.state.router.current === 'userEdit' && this.state.user ){
+      return ( <UserProfile user={this.state.user} updateUser={this.updateUser} /> );
     }else if (this.state.router.current === 'chat' || this.state.user ){
       return ( <Page
         doLogOut={this.logOut}

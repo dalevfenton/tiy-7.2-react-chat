@@ -61,10 +61,10 @@ var ChatMessage = React.createClass({
     var postTime;
     //this time is always evaluating true event for invalid time returns
     //fix later
-    if(time){
+    if(time != "Invalid Date" ){
       postTime = timeSince(time);
     }else{
-      postTime = timeSince(new Date());
+      postTime = this.props.model.get('time');
     }
     var avatarUrl;
     if(this.props.model.get('user_avatar')){
@@ -130,6 +130,7 @@ var ChatForm = React.createClass({
         <input
           type="text"
           name="new_message"
+          placeholder="type a message..."
           value={this.state.chat}
           onChange={this.onInput}
         />

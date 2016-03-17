@@ -34,12 +34,14 @@ var Login = React.createClass({
               <input
                 type="text"
                 name="username"
+                placeholder="Username... Pick Anything or Be Anyone!"
                 value={this.state.username}
                 onChange={this.handleName}
               />
               <input
                 type="email"
                 name="email"
+                placeholder="Email Address"
                 value={this.state.email}
                 onChange={this.handleEmail}
                />

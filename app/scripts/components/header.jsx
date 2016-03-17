@@ -7,10 +7,8 @@ var Header = React.createClass({
   getInitialState: function(){
     return {
       roomName: 'Default Room',
-      search: '',
       users: this.props.users,
-      user: this.props.user,
-      toggleForm: false
+      user: this.props.user
     }
   },
   handleSearch: function(e){
@@ -18,7 +16,7 @@ var Header = React.createClass({
   },
   handleDD: function(e, eventKey ){
     if(eventKey == 1){
-      this.toggleEdit(e);
+      Backbone.history.navigate( 'user-edit', {trigger: true });
     }
     if(eventKey == 2){
       this.logOut(e);
@@ -27,11 +25,6 @@ var Header = React.createClass({
   handleSubmit: function(e){
     e.preventDefault();
     //implement later when our collection is properly hooked up
-  },
-  toggleEdit: function(e){
-    e.preventDefault();
-    this.setState({toggleForm: !this.state.toggleForm});
-    console.log(this.state.toggleForm);
   },
   logOut: function(e){
     console.log('inside Header logOut');
@@ -56,7 +49,14 @@ var Header = React.createClass({
           <div className="room-users">{this.state.users.length} members</div>
         </div>
         <div className="room-meta-right">
-          <DropdownButton onSelect={this.handleDD} bsStyle="default" title={ddTitle()} id="dropdown-size-medium">
+          <DropdownButton
+            onSelect={this.handleDD}
+            bsStyle="default"
+            title={ddTitle()}
+            id="dropdown-size-medium"
+            pullRight
+            noCaret
+          >
             <MenuItem eventKey="1">Edit Profile</MenuItem>
             <MenuItem eventKey="2">Log Out</MenuItem>
           </DropdownButton>
