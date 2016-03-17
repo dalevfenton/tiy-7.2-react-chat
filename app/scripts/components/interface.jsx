@@ -78,11 +78,12 @@ var InterfaceComponent = React.createClass({
     this.intervals = [];
     this.state.router.on('route', this.callback);
     this.state.messages.on('update', this.callback);
-    this.state.messages.on('update', this.scroll);
+    this.state.messages.on('add', this.scroll);
     this.state.users.on('update', this.callback);
   },
   componentDidMount: function(){
     this.setInterval(this.fetch, 5000);
+    this.scroll;
   },
   componentWillUnmount: function(){
     this.intervals.forEach(clearInterval);

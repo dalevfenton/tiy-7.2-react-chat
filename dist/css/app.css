@@ -5949,7 +5949,10 @@ input {
   border-radius: 10px;
   margin-bottom: 25px;
   padding: 15px;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  word-break: break-all; }
 
 .message-holder {
   margin-left: -15px;

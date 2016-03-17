@@ -132,6 +132,9 @@ input{
   margin-bottom: 25px;
   padding: 15px;
   overflow-y: scroll;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 .message-holder{
   @include make-row();
